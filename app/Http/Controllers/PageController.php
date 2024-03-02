@@ -2,9 +2,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-class PageControllers extends Controller
+class PageController extends Controller
 {
-    public function hello(){
-        return 'Hello World';
+    public function index(){
+        return 'Selamat Datang';
+    }
+    public function about(){
+        return 'Nizar Khawarizmi <br> 3202216105';
+    }
+    public function articles($id){
+        return 'Halaman Artikel dengan ID '.$id;
     }
 }
