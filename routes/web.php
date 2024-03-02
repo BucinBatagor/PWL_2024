@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\PhotoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +30,7 @@ Route::get('/', function () {
     return 'Selamat Datang';
 });
 Route::get('/about', function () {
-    return '2341728020, Nizar Khawarizmi';
+    return 'Nizar Khawarizmi <br> 3202216105';
 });
 
 // Route Parameters
@@ -39,10 +44,31 @@ Route::get('/articles/{id}', function($id){
     return 'Halaman artikel dengan ID '.$id;
 });
 
-/* Optional Parameters */
+// Optional Parameters
 Route::get('/user/{name?}', function($name='John'){
     return 'Nama saya '.$name;
 });
 
-/* Menambahkan controller "WelcomeController" pada route */
-Route::get('/hello', [WelcomeController::class,'hello']);
+
+// Membuat Route dari Controller WelcomeController
+Route::get('hello', [WelcomeController::class,'hello']);
+
+// Membuat Route dari Controllers PageController
+Route::get('', [PageController::class,'index']);
+Route::get('about', [PageController::class,'about']);
+Route::get('articles/{id}', [PageController::class,'articles']);
+
+// Membuat Route dari Controllers HomeController, AboutController, dan ArticleController
+// Single Action Controller
+Route::get('', [HomeController::class,'index']);
+Route::get('about', [AboutController::class,'about']);
+Route::get('articles/{id}', [ArticleController::class,'articles']);
+
+// Membuat Route dari Controller PhotoController
+Route::resource('photos', PhotoController::class);
+Route::resource('photos', PhotoController::class)->only([
+    'index', 'show'
+]);
+Route::resource('photos', PhotoController::class)->except([
+    'create', 'store', 'update', 'destroy'
+]);
